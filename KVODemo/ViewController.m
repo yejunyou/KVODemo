@@ -7,23 +7,52 @@
 //
 
 #import "ViewController.h"
+#import "Person.h"
 
 @interface ViewController ()
-
+//@property (nonatomic, strong) Person *p;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    Person *_p = [[Person alloc] init];
+    
+    // 控制器观察person的name
+    [_p addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    
+    _p.name = @"yy";
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    NSLog(@"%@",keyPath);
+    NSLog(@"%@",object);
+    NSLog(@"%@",change);
+    
+    if ([keyPath isEqualToString:@"name"]) {
+        // todo xxx
+    }
 }
 
+
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    NSLog(@"----华丽的分割线----");
+//    _p.name = @"xx";
+//}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    static NSInteger i = 0;
+    if (i++ % 2 == 0) {
+        [self presentViewController:[[ViewController alloc] init] animated:YES completion:nil];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 
 @end

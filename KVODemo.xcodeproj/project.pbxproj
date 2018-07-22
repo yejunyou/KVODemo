@@ -13,6 +13,8 @@
 		753470432104CDE40040C6C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 753470422104CDE40040C6C0 /* Assets.xcassets */; };
 		753470462104CDE40040C6C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 753470442104CDE40040C6C0 /* LaunchScreen.storyboard */; };
 		753470492104CDE40040C6C0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 753470482104CDE40040C6C0 /* main.m */; };
+		753470512104CE0A0040C6C0 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 753470502104CE0A0040C6C0 /* Person.m */; };
+		753470542104D2B40040C6C0 /* NSObject+KVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 753470532104D2B40040C6C0 /* NSObject+KVO.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,10 @@
 		753470452104CDE40040C6C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		753470472104CDE40040C6C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		753470482104CDE40040C6C0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7534704F2104CE0A0040C6C0 /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		753470502104CE0A0040C6C0 /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		753470522104D2B40040C6C0 /* NSObject+KVO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+KVO.h"; sourceTree = "<group>"; };
+		753470532104D2B40040C6C0 /* NSObject+KVO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KVO.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,10 @@
 				7534703A2104CDE30040C6C0 /* AppDelegate.m */,
 				7534703C2104CDE30040C6C0 /* ViewController.h */,
 				7534703D2104CDE30040C6C0 /* ViewController.m */,
+				7534704F2104CE0A0040C6C0 /* Person.h */,
+				753470502104CE0A0040C6C0 /* Person.m */,
+				753470522104D2B40040C6C0 /* NSObject+KVO.h */,
+				753470532104D2B40040C6C0 /* NSObject+KVO.m */,
 				7534703F2104CDE30040C6C0 /* Main.storyboard */,
 				753470422104CDE40040C6C0 /* Assets.xcassets */,
 				753470442104CDE40040C6C0 /* LaunchScreen.storyboard */,
@@ -143,6 +153,8 @@
 			files = (
 				7534703E2104CDE30040C6C0 /* ViewController.m in Sources */,
 				753470492104CDE40040C6C0 /* main.m in Sources */,
+				753470542104D2B40040C6C0 /* NSObject+KVO.m in Sources */,
+				753470512104CE0A0040C6C0 /* Person.m in Sources */,
 				7534703B2104CDE30040C6C0 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
