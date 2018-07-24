@@ -10,7 +10,7 @@
 #import "Person.h"
 
 @interface ViewController ()
-//@property (nonatomic, strong) Person *p;
+@property (nonatomic, strong) Person *p;
 @end
 
 @implementation ViewController
@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    Person *_p = [[Person alloc] init];
+    _p = [[Person alloc] init];
     
     // 控制器观察person的name
     [_p addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
@@ -39,20 +39,21 @@
 }
 
 
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-//{
-//    NSLog(@"----华丽的分割线----");
-//    _p.name = @"xx";
-//}
-
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    static NSInteger i = 0;
-    if (i++ % 2 == 0) {
-        [self presentViewController:[[ViewController alloc] init] animated:YES completion:nil];
-    }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    NSLog(@"----华丽的分割线----");
+//    _p.name = @"xx";
+    [_p setValue:@"zz" forKey:@"name"];
 }
+
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    static NSInteger i = 0;
+//    if (i++ % 2 == 0) {
+//        [self presentViewController:[[ViewController alloc] init] animated:YES completion:nil];
+//    }else{
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//    }
+//}
 
 @end
