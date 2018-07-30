@@ -47,7 +47,7 @@ static NSString *setterForGetter(NSString *getter)
     // 首字母转成大写
     NSString *upperLetter = [[getter substringToIndex:1] uppercaseString];
     NSString *lowerLetter = [getter substringFromIndex:1];
-    NSString *setter = [NSString stringWithFormat:@"set%@%@", upperLetter,lowerLetter];
+    NSString *setter = [NSString stringWithFormat:@"set%@%@:", upperLetter,lowerLetter];
     return setter;
 }
 
@@ -57,15 +57,16 @@ static NSString *getterForSetter(NSString *setter)
     if (setter.length <= 0 || ![setter hasPrefix:@"set"] || ![setter hasSuffix:@":"]) {
         return nil;
     }
-    
+
     // 获取 ‘set‘ 到 ’：‘之间的字符串(例如：setName: -> Name)
     NSRange range = NSMakeRange(3, setter.length - 4);
     NSString *getter = [setter substringWithRange:range];
-    
+
     NSString *lowerLetter = [[getter substringToIndex:1] lowercaseString];
     NSString *leftLetter = [getter substringFromIndex:1];
     return [NSString stringWithFormat:@"%@%@",lowerLetter, leftLetter];
 }
+
 
 #pragma mark - Overridden Methods
 /*
@@ -77,7 +78,7 @@ static NSString *getterForSetter(NSString *setter)
 static void kvo_setter(id self, SEL _cmd, id newValue)
 {
     NSString *setterName = NSStringFromSelector(_cmd);
-    NSString *getterName = getterForSetter(newValue);
+    NSString *getterName = getterForSetter(setterName);
     
     if (getterName == nil) {
         NSString *reason = [NSString stringWithFormat:@"%@ 木有 %@ 这个setter方法",self, setterName];
@@ -86,6 +87,9 @@ static void kvo_setter(id self, SEL _cmd, id newValue)
                                      userInfo:nil];
     }
  
+    
+    id oldValue = [self valueForKey:getterName];
+    
     struct objc_super super_clazz = {
         .receiver = self,
         .super_class = class_getSuperclass(object_getClass(self)) // 注意区分：objc_getClass()
@@ -98,12 +102,13 @@ static void kvo_setter(id self, SEL _cmd, id newValue)
     objc_msgSendSuperCasted(&super_clazz, _cmd, newValue);
     
     // 执行回调
-    id oldValue = [self valueForKey:getterName];
     NSMutableArray *observers = objc_getAssociatedObject(self, (__bridge const void *)_kYYKVOAssociatedObservers);
     for (_YYObserverManager *mgr in observers){
         if ([mgr.keyPath isEqualToString:getterName]) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                mgr.block(self, getterName, oldValue, newValue);
+//                if (![oldValue isEqualToString:newValue]){
+                    mgr.block(self, getterName, oldValue, newValue);
+//                }
             });
         }
     }
@@ -183,7 +188,7 @@ static Class kvo_class(id self, SEL _cmd)
     if (![self _hasSelector:setterSelector]) {
         const char *types = method_getTypeEncoding(setterMethod);
 //        class_addMethod([self class], setterSelector, (IMP)kvo_setter, "v@:");
-        class_addMethod([self class], setterSelector, (IMP)kvo_setter, types);
+        class_addMethod(clazz, setterSelector, (IMP)kvo_setter, types);
     }
     
     // Step 4: 保存 key path 相关的观察者信息

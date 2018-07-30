@@ -16,6 +16,6 @@ typedef void (^YYObservingBlock)(id observedObject, NSString *observedKey, id ol
             forKeyPath:(NSString *)keyPath
              withBlock:(YYObservingBlock)block;
 
-- (void)yy_removeObserver:(NSObject *)observer forKey:(id)keyPath;
+- (void)yy_removeObserver:(NSObject *)observer forKey:(NSString *)keyPath;
 
 @end
